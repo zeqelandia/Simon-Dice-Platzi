@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Dice</title>
     <link rel="stylesheet" href="style.css">
+    <script src="app.js" type="module"></script>
 </head>
 <body>
     <div class="main">
@@ -13,10 +14,14 @@
         </header>
         <section class="game">
             <div class="game__board">
-                <div class="game__cell game__cell--blue"></div>
-                <div class="game__cell game__cell--red"></div>
-                <div class="game__cell game__cell--yellow"></div>
-                <div class="game__cell game__cell--green"></div>
+                <div id="blue" class="game__cell game__cell--blue lightOff"></div>
+                <div id="red" class="game__cell game__cell--red lightOff"></div>
+                <div id="yellow" class="game__cell game__cell--yellow lightOff"></div>
+                <div id="green" class="game__cell game__cell--green lightOff"></div>
+            </div>
+            <div class="game__score">
+                <h5 id="score">Puntaje: 0</h5>
+                <h5 id="record">Record: 0</h5>
             </div>
         </section>
         <footer class="footer">
