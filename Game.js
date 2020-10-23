@@ -1,5 +1,6 @@
 import Score from './Score.js'
 import Board from './Board.js'
+import Cell from './Cell.js'
 
 export default class Game {
     constructor() {
@@ -7,7 +8,7 @@ export default class Game {
         this.score = new Score(document.getElementById('score'))
         this.record = new Score(document.getElementById('record'))
         this.board = new Board()
-        this.colorSequence = [0 , 1, 2, 3]
+        this.colorSequence = [0 , 0, 1, 2, 3]
         this.getGameStarted
         this.setGameStarted
         this.startGame

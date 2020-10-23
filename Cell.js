@@ -19,29 +19,44 @@ export default class Cell {
     }
 
     setActive(bool) {
+        const aux = this
         if(bool) {
-            this.getId().addEventListener('mousedown', this.turnLightOn)
-            this.getId().addEventListener('mouseup', this.turnLightOff)
+            this.getId().addEventListener('mousedown', function() {
+                aux.turnLightOn()
+            })
+            this.getId().addEventListener('mouseup', function() {
+                aux.turnLightOff()
+            })
+            this.getId().addEventListener('mouseout', function() {
+                aux.turnLightOff()
+            })
         }else {
-            this.getId().removeEventListener('mousedown', this.turnLightOn)
-            this.getId().removeEventListener('mouseup', this.turnLightOff)
+            this.getId().removeEventListener('mousedown', function() {
+                aux.turnLightOn()
+            })
+            this.getId().removeEventListener('mouseup', function() {
+                aux.turnLightOff()
+            })
+            this.getId().removeEventListener('mouseout', function() {
+                aux.turnLightOff()
+            })
         }
     }
 
     illuminateCell() {
         setTimeout(() => {
-            this.getId().classList.replace('lightOff', 'lightOn')
-        }, 200);
+            this.turnLightOn()
+        }, 400);
         setTimeout(() => {
-            this.getId().classList.replace('lightOn', 'lightOff')
-        }, 300);
+            this.turnLightOff()
+        }, 5000);
     }
 
     turnLightOn() {
-        this.classList.replace('lightOff', 'lightOn')
+        this.getId().classList.replace('lightOff', 'lightOn')
     }
 
     turnLightOff() {
-        this.classList.replace('lightOn', 'lightOff')
+        this.getId().classList.replace('lightOn', 'lightOff')
     }
 }
