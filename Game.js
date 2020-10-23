@@ -8,7 +8,7 @@ export default class Game {
         this.score = new Score(document.getElementById('score'))
         this.record = new Score(document.getElementById('record'))
         this.board = new Board()
-        this.colorSequence = [0 , 0, 1, 2, 3]
+        this.colorSequence = []
         this.getGameStarted
         this.setGameStarted
         this.startGame
@@ -18,6 +18,8 @@ export default class Game {
         this.getRecord
         this.setRecord 
         this.getBoard
+        this.getColorSequence
+        this.addColorToSequence
         this.showSequence
     }
 
@@ -31,7 +33,16 @@ export default class Game {
 
     startGame() {
         this.setGameStarted(true)
-        this.getBoard().activateCells(true)
+        let isGameStarted = this.getGameStarted()
+        let playerFinishedPlaying = false
+
+        while(isGameStarted) {
+            this.addColorToSequence()
+            this.showSequence()
+            this.getBoard().activateCells(true)
+            isGameStarted = false
+        }
+        
     }
 
     restartGame() {
@@ -59,7 +70,18 @@ export default class Game {
         return this.board
     }
 
+    getColorSequence() {
+        return this.colorSequence
+    }
+
+    addColorToSequence() {
+        const maxColor = 4
+        const n = Math.floor(Math.random() * maxColor) 
+        this.getColorSequence().push(n)
+    }
+
     showSequence() {
-        this.getBoard().illuminateSequence(this.colorSequence)
+        const colors = this.getColorSequence()
+        this.getBoard().illuminateSequence(colors)
     }
 }
