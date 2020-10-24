@@ -8,14 +8,16 @@ export default class Game {
         this.score = new Score(document.getElementById('score'))
         this.record = new Score(document.getElementById('record'))
         this.board = new Board()
-        this.colorSequence = [0, 1]
+        this.colorSequence = []
         this.playerSelectedColors = []
+        this.lastCheckedColor = -1
         this.getGameStarted
         this.setGameStarted
         this.startGame
         this.restartGame
         this.activateInputs
         this.colorToNumber
+        this.checkPlayerSelection
         this.getScore
         this.setScore
         this.getRecord
@@ -24,8 +26,11 @@ export default class Game {
         this.getPlayerSelectedColors
         this.setPlayerSelectedColors
         this.getColorSequence
+        this.resetColorSequence
         this.addColorToSequence
         this.showSequence
+        this.getLastCheckedColor
+        this.setLastCheckedColor
     }
 
     getGameStarted() {
@@ -38,6 +43,8 @@ export default class Game {
 
     startGame() {
         this.setGameStarted(true)
+        this.addColorToSequence()
+        this.showSequence()
         this.activateInputs(true)
     }
 
@@ -51,14 +58,15 @@ export default class Game {
             if(bool) {
                 cell.getId().addEventListener('mousedown', function() {
                     cell.turnLightOn()
-                    aux.getPlayerSelectedColors().push(aux.colorToNumber(cell.getColor()))
+                    //aux.getPlayerSelectedColors().push(aux.colorToNumber(cell.getColor()))
+                    aux.checkPlayerSelection(aux.colorToNumber(cell.getColor()))
                 })
                 cell.getId().addEventListener('mouseup', function() {
                     cell.turnLightOff()
                 })
-                cell.getId().addEventListener('mouseout', function() {
+                /*cell.getId().addEventListener('mouseout', function() {
                     cell.turnLightOff()
-                })
+                })*/
             }else {
                 cell.getId().removeEventListener('mousedown', function() {
                     cell.turnLightOn()
@@ -66,9 +74,9 @@ export default class Game {
                 cell.getId().removeEventListener('mouseup', function() {
                     cell.turnLightOff()
                 })
-                cell.getId().removeEventListener('mouseout', function() {
+                /*cell.getId().removeEventListener('mouseout', function() {
                     cell.turnLightOff()
-                })
+                })*/
             }
         }
     }
@@ -83,6 +91,32 @@ export default class Game {
                 return 2
             case 'green':
                 return 3
+        }
+    }
+
+    checkPlayerSelection(selection) {
+        this.setLastCheckedColor(this.getLastCheckedColor() + 1)
+        if(selection === this.getColorSequence()[this.getLastCheckedColor()]) {
+            if(this.getLastCheckedColor() === (this.getColorSequence().length - 1)) {
+                console.log(`Selection = ${selection}`)
+                console.log(`LastCheckedColor = ${this.getLastCheckedColor()}`)
+                console.log(`Sequence color = ${this.getColorSequence()[this.getLastCheckedColor()]}`)
+                this.setLastCheckedColor(-1)
+                this.activateInputs(false)
+                this.setScore(this.getScore().getPoints() + 1)
+                this.addColorToSequence()
+                this.showSequence()
+                this.activateInputs(true)
+            }
+        }else {
+            console.log(selection === this.getColorSequence()[this.getLastCheckedColor()])
+            this.setLastCheckedColor(-1)
+            this.setScore(0)
+            this.activateInputs(false)
+            this.resetColorSequence()
+            this.addColorToSequence()
+            this.showSequence()
+            this.activateInputs(true)
         }
     }
 
@@ -118,6 +152,10 @@ export default class Game {
         return this.colorSequence
     }
 
+    resetColorSequence() {
+        this.colorSequence = []
+    }
+
     addColorToSequence() {
         const maxColor = 4
         const n = Math.floor(Math.random() * maxColor) 
@@ -126,5 +164,13 @@ export default class Game {
 
     showSequence() {
         this.getBoard().illuminateSequence(this.getColorSequence())
+    }
+
+    getLastCheckedColor() {
+        return this.lastCheckedColor
+    }
+
+    setLastCheckedColor(n) {
+        this.lastCheckedColor = n
     }
 }
