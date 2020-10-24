@@ -10,7 +10,6 @@ export default class Board {
         ]
         this.getCells
         this.getCell
-        this.activateCells
         this.illuminateSequence
     }
 
@@ -20,12 +19,6 @@ export default class Board {
 
     getCell(index) {
         return this.getCells()[index]
-    }
-
-    activateCells(bool) {
-        for(let cell of this.getCells()) {
-            cell.setActive(bool)
-        }
     }
 
     illuminateSequence(arr) {        

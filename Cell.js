@@ -4,7 +4,6 @@ export default class Cell {
         this.id = id
         this.getColor
         this.getId 
-        this.setActive
         this.illuminateCell
         this.turnLightOn
         this.turnLightOff
@@ -16,31 +15,6 @@ export default class Cell {
 
     getId() {
         return this.id
-    }
-
-    setActive(bool) {
-        const aux = this
-        if(bool) {
-            this.getId().addEventListener('mousedown', function() {
-                aux.turnLightOn()
-            })
-            this.getId().addEventListener('mouseup', function() {
-                aux.turnLightOff()
-            })
-            this.getId().addEventListener('mouseout', function() {
-                aux.turnLightOff()
-            })
-        }else {
-            this.getId().removeEventListener('mousedown', function() {
-                aux.turnLightOn()
-            })
-            this.getId().removeEventListener('mouseup', function() {
-                aux.turnLightOff()
-            })
-            this.getId().removeEventListener('mouseout', function() {
-                aux.turnLightOff()
-            })
-        }
     }
 
     illuminateCell() {
