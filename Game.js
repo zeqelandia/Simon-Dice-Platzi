@@ -68,22 +68,16 @@ export default class Game {
                     cell.turnLightOff()
                 })*/
             }else {
-                cell.getId().removeEventListener('mousedown', function() {
-                    cell.turnLightOn()
-                })
-                cell.getId().removeEventListener('mouseup', function() {
-                    cell.turnLightOff()
-                })
-                /*cell.getId().removeEventListener('mouseout', function() {
-                    cell.turnLightOff()
-                })*/
+                cell.getId().removeEventListener('mousedown')
+                cell.getId().removeEventListener('mouseup')
+                /*cell.getId().removeEventListener('mouseout')*/
             }
         }
     }
 
     colorToNumber(color) {
         switch(color) {
-            case 'blue':
+            case 'ble':
                 return 0
             case 'red':
                 return 1
