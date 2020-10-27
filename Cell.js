@@ -4,7 +4,6 @@ export default class Cell {
         this.id = id
         this.getColor
         this.getId 
-        this.illuminateCell
         this.turnLightOn
         this.turnLightOff
     }
@@ -17,16 +16,8 @@ export default class Cell {
         return this.id
     }
 
-    illuminateCell() {
-        setTimeout(() => {
-            this.turnLightOn()
-        }, 400);
-        setTimeout(() => {
-            this.turnLightOff()
-        }, 5000);
-    }
-
     turnLightOn() {
+        console.log(this.getColor())
         this.getId().classList.replace('lightOff', 'lightOn')
     }
 
