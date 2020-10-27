@@ -12,6 +12,7 @@ export default class Game {
         this.btnStart.setActive(true, this.startGame.bind(this))
         this.colorSequence = []
         this.lastCheckedColor = -1
+        this.storage = window.localStorage
         this.getBtnStart
         this.startGame
         this.restartGame
@@ -31,6 +32,9 @@ export default class Game {
         this.showSequence
         this.getLastCheckedColor
         this.setLastCheckedColor
+        this.getStorage
+        this.loadRecord
+        this.loadRecord()
     }
 
     getBtnStart() {
@@ -38,6 +42,7 @@ export default class Game {
     }
 
     startGame() {
+        this.loadRecord()
         this.getBtnStart().setActive(false, this.startGame)
         this.setScore(0)
         this.setLastCheckedColor(-1)
@@ -85,6 +90,7 @@ export default class Game {
             if(this.getLastCheckedColor() === (this.getColorSequence().length - 1)) {
                 this.setScore(this.getScore().getPoints() + 1)
                 this.setNewRecord()
+                this.getStorage().setItem('record', this.getRecord().getPoints())
                 this.setLastCheckedColor(-1)
                 this.addColorToSequence()
                 this.showSequence()
@@ -144,5 +150,19 @@ export default class Game {
 
     setLastCheckedColor(n) {
         this.lastCheckedColor = n
+    }
+
+    getStorage() {
+        return this.storage
+    }
+
+    loadRecord() {
+        const aux = this.getStorage().getItem('record')
+        if(aux) {
+            this.setRecord(aux)
+        }else {
+            this.getStorage().setItem('record', 0)
+            this.setRecord(0)
+        }
     }
 }
