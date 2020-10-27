@@ -6,7 +6,6 @@ export default class Score {
         this.getPoints
         this.setPoints
         this.increasePoints
-        this.resetPoints
     }
 
     getId() {
@@ -17,16 +16,12 @@ export default class Score {
         return this.points
     }
 
-    setPoints(n) {
+    setPoints(n, str) {
         this.points = n
-        this.id.innerHTML = `Puntaje ${this.points}`
+        this.id.innerHTML = `${str}: ${this.points}`
     }
 
     increasePoints() {
         this.setPoints(this.getPoints()+1)
-    }
-
-    resetPoints() {
-        this.setPoints(0)
     }
 }

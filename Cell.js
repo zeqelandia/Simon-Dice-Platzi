@@ -17,7 +17,6 @@ export default class Cell {
     }
 
     turnLightOn() {
-        console.log(this.getColor())
         this.getId().classList.replace('lightOff', 'lightOn')
     }
 

@@ -1,23 +1,29 @@
 import Score from './Score.js'
 import Board from './Board.js'
 import Cell from './Cell.js'
+import Button from './Button.js'
 
 export default class Game {
     constructor() {
         this.score = new Score(document.getElementById('score'))
         this.record = new Score(document.getElementById('record'))
         this.board = new Board()
+        this.btnStart = new Button(document.getElementById('btnStart'))
+        this.btnStart.setActive(true, this.startGame.bind(this))
         this.colorSequence = []
         this.lastCheckedColor = -1
+        this.getBtnStart
         this.startGame
         this.restartGame
         this.activateInputs
+        this.activateInputs()
         this.colorToNumber
         this.checkPlayerSelection
         this.getScore
         this.setScore
         this.getRecord
         this.setRecord 
+        this.setNewRecord
         this.getBoard
         this.getColorSequence
         this.resetColorSequence
@@ -27,18 +33,21 @@ export default class Game {
         this.setLastCheckedColor
     }
 
-    startGame() {
-        this.addColorToSequence()
-        this.showSequence()
-        this.activateInputs()
+    getBtnStart() {
+        return this.btnStart
     }
 
-    restartGame() {
+    startGame() {
+        this.getBtnStart().setActive(false, this.startGame)
         this.setScore(0)
         this.setLastCheckedColor(-1)
         this.resetColorSequence()
         this.addColorToSequence()
         this.showSequence()
+    }
+
+    restartGame() {
+        this.getBtnStart().setActive(true, this.startGame)
     }
 
     activateInputs() {
@@ -55,7 +64,6 @@ export default class Game {
             })
         }
     }
-    
 
     colorToNumber(color) {
         switch(color) {
@@ -76,6 +84,7 @@ export default class Game {
         if(selection === this.getColorSequence()[this.getLastCheckedColor()]) {
             if(this.getLastCheckedColor() === (this.getColorSequence().length - 1)) {
                 this.setScore(this.getScore().getPoints() + 1)
+                this.setNewRecord()
                 this.setLastCheckedColor(-1)
                 this.addColorToSequence()
                 this.showSequence()
@@ -90,7 +99,7 @@ export default class Game {
     }
 
     setScore(n) {
-        this.score.setPoints(n)
+        this.score.setPoints(n, 'Puntaje')
     }
 
     getRecord() {
@@ -98,7 +107,13 @@ export default class Game {
     }
 
     setRecord(n) {
-        this.record.setPoints(n)
+        this.record.setPoints(n, 'Record')
+    }
+
+    setNewRecord() {
+        if(this.getScore().getPoints() > this.getRecord().getPoints()) {
+            this.setRecord(this.getScore().getPoints())
+        }
     }
 
     getBoard() {
