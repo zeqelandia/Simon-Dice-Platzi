@@ -1,24 +1,57 @@
+$blue: rgb(0, 230, 251)
+$red: rgb(236, 12, 160)
+$green: rgb(0, 255, 34)
+$yellow: rgb(235, 248, 55)
+
+    
 body 
     margin: 0
 
 
 .main 
+    background-image: url('img/background2.jpg')
     width: 100%
+    height: 100vh
 
 
 .header 
     display: flex
     font-family: Arial, Helvetica, sans-serif
+    font-size: 38px
     justify-content: center
-
-
+    
+    color: #fff
+    font-family: "ubuntu"
+    text-transform: uppercase
+    font-weight: 700
+    font-family: "Josefin Sans", sans-serif
+    background: linear-gradient(to right, $red 20%, $yellow 30%, $green 40%, $blue 10%)
+    background-size: auto auto
+    background-clip: border-box
+    background-size: 200% auto
+    color: #fff
+    background-clip: text
+    text-fill-color: transparent
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+    animation: textclip 1.5s linear infinite
+	
+@keyframes textclip 
+	to 
+		background-position: 200% center
+	
 .game 
+    background-color: rgba(0, 0, 0, 0.4)
+    box-shadow: 0 0 10px black
     display: flex
+    flex-direction: column
     justify-content: center
     margin-top: 40px
+    padding: 20px 0 20px 0
 
 
 .game__board 
+    align-self: center
     background-color: rgb(20, 20, 20)
     box-shadow: 0 5px 15px black
     display: grid
@@ -31,19 +64,48 @@ body
     cursor: pointer
 
 .game__cell--blue 
-    background-color: rgba(0, 0, 255, 1)
+    background-color: $blue
 
+    &:hover 
+        box-shadow: 0px 0px 200px $blue
 
 .game__cell--red 
-    background-color: rgba(255, 0, 0, 1)
+    background-color: $red
 
+    &:hover 
+        box-shadow: 0px 0px 200px $red
 
 .game__cell--yellow 
-    background-color: rgba(255, 217, 0, 1)
+    background-color: $yellow
 
+    &:hover 
+        box-shadow: 0px 0px 200px $yellow
 
 .game__cell--green 
-    background-color: rgba(0, 255, 0, 1)
+    background-color: $green
+
+    &:hover 
+        box-shadow: 0px 0px 200px $green
+
+.game__score
+    align-self: center
+    color: white
+    font-family: Futura, sans-serif;
+    font-size: 30px
+
+.game__start 
+    align-self: center
+
+.game__start-button
+    background: none
+    border: none
+    cursor: pointer
+    outline: none
+    width: 100px
+
+.game__start-button--icon
+    filter: invert(71%) sepia(65%) saturate(6818%) hue-rotate(163deg) brightness(97%) contrast(101%)
+    width: 100%
 
 .lightOn
     opacity: 100%
@@ -56,10 +118,13 @@ body
     display: flex
     justify-content: center
 
-
 .footer__link 
-    color: black
-    font-family: Verdana, Geneva, Tahoma, sans-serif
-    font-size: 13px
-    margin-top: 25vh
+    background-color: rgba(0, 0, 0, 0.4)
+    box-shadow: 0 0 20px black
+    color: white
+    font-family: Futura, sans-serif;
+    font-size: 20px
+    margin-top: 2vh
+    padding: 0px 50px 0px 50px
     text-decoration: none
+
